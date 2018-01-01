@@ -1,0 +1,140 @@
+const Boom = require('boom');
+const _ = require("lodash");
+const Joi = require('joi');
+
+module.exports = {
+    path: '/api/material/types',
+    method: 'GET',
+    handler(request, reply) {
+        const types = [
+            {"code":"awtl","name":"凹尾塘鳢","desc":"","pc":"hy"},
+            {"code":"bfy","name":"蝙蝠鱼","desc":"","pc":"hy"},
+            {"code":"dxsx","name":"大型神仙","desc":"","pc":"hy"},
+            {"code":"xxsx","name":"小型神仙","desc":"","pc":"hy"},
+            {"code":"dd","name":"倒吊","desc":"","pc":"hy"},
+            {"code":"dy","name":"蝶鱼","desc":"","pc":"hy"},
+            {"code":"hjy","name":"海金鱼","desc":"","pc":"hy"},
+            {"code":"hl","name":"海龙","desc":"","pc":"hy"},
+            {"code":"hz","name":"花鮨","desc":"","pc":"hy"},
+            {"code":"lty","name":"隆头鱼","desc":"","pc":"hy"},
+            {"code":"nqd","name":"拟雀鲷","desc":"","pc":"hy"},
+            {"code":"pd","name":"炮弹","desc":"","pc":"hy"},
+            {"code":"qw","name":"青蛙","desc":"","pc":"hy"},
+            {"code":"qd","name":"雀鲷","desc":"","pc":"hy"},
+            {"code":"sby","name":"石斑鱼","desc":"","pc":"hy"},
+            {"code":"sl","name":"石鲈","desc":"","pc":"hy"},
+            {"code":"tzd","name":"天竺鲷","desc":"","pc":"hy"},
+            {"code":"zhy","name":"虾虎鱼","desc":"","pc":"hy"},
+            {"code":"wei","name":"鳚","desc":"","pc":"hy"},
+            {"code":"xc","name":"箱鲀","desc":"","pc":"hy"},
+            {"code":"ying","name":"鹰","desc":"","pc":"hy"},
+            {"code":"zhou","name":"鲉","desc":"","pc":"hy"},
+            {"code":"by","name":"壁鱼","desc":"","pc":"hy"},
+            {"code":"gt","name":"狗头","desc":"","pc":"hy"},
+            {"code":"xiaoc","name":"小丑","desc":"","pc":"hy"},
+            {"code":"hm","name":"海鳗","desc":"","pc":"hy"},
+            {"code":"sy","name":"鲨鱼","desc":"","pc":"hy"},
+            {"code":"jly","name":"金鳞鱼","desc":"","pc":"hy"},
+            {"code":"yy","name":"鳐鱼","desc":"","pc":"hy"},
+            {"code":"hyqt","name":"其它","desc":"","pc":"hy"},
+            {"code":"xia","name":"虾","desc":"","pc":"qt"},
+            {"code":"xie","name":"蟹","desc":"","pc":"qt"},
+            {"code":"luo","name":"螺","desc":"","pc":"qt"},
+            {"code":"hg","name":"海龟","desc":"","pc":"qt"},
+            {"code":"hc","name":"海草","desc":"","pc":"qt"},
+            {"code":"hk","name":"海葵","desc":"","pc":"qt"},
+            {"code":"hxia","name":"海虾","desc":"","pc":"qt"},
+            {"code":"hd","name":"海胆","desc":"","pc":"qt"},
+            {"code":"hx","name":"海星","desc":"","pc":"qt"},
+            {"code":"hail","name":"海螺","desc":"","pc":"qt"},
+            {"code":"haim","name":"海绵","desc":"","pc":"qt"},
+            {"code":"gc","name":"管虫","desc":"","pc":"qt"},
+            {"code":"px","name":"螃蟹","desc":"","pc":"qt"},
+            {"code":"hs","name":"海参","desc":"","pc":"qt"},
+            {"code":"sb","name":"扇贝","desc":"","pc":"qt"},
+            {"code":"wzb","name":"五爪贝","desc":"","pc":"qt"},
+            {"code":"hq","name":"海鞘","desc":"","pc":"qt"},
+            {"code":"lx","name":"龙虾","desc":"","pc":"qt"},
+            {"code":"wz","name":"乌贼","desc":"","pc":"qt"},
+            {"code":"zy","name":"章鱼","desc":"","pc":"qt"},
+            {"code":"sm","name":"水母","desc":"","pc":"qt"},
+            {"code":"hky","name":"海蛞蝓","desc":"","pc":"qt"},
+            {"code":"hky","name":"棘皮动物","desc":"","pc":"qt"},
+            {"code":"qtqt","name":"其它","desc":"","pc":"qt"},
+            {"code":"rtqt","name":"其它","desc":"","pc":"rt"},
+            {"code":"rtbeilei","name":"贝类","desc":"","pc":"rt"},
+            {"code":"rtboluod","name":"波罗丁","desc":"","pc":"rt"},
+            {"code":"rtpicaol","name":"草皮类","desc":"","pc":"rt"},
+            {"code":"rtchengxing","name":"橙星","desc":"","pc":"rt"},
+            {"code":"rtnaoleish","name":"脑类珊瑚","desc":"","pc":"rt"},
+            {"code":"rtnaizuihk","name":"奶嘴海葵","desc":"","pc":"rt"},
+            {"code":"rtniukou","name":"纽扣","desc":"","pc":"rt"},
+            {"code":"rtgulei","name":"菇类","desc":"","pc":"rt"},
+            {"code":"rtwanhuatsh","name":"万花筒珊瑚","desc":"","pc":"rt"},
+            {"code":"rtpigel","name":"皮革类","desc":"","pc":"rt"},
+            {"code":"rtshouzhil","name":"手指类","desc":"","pc":"rt"},
+            {"code":"rtshuish","name":"水珊瑚-海树海柳海绵","desc":"","pc":"rt"},
+            {"code":"rtfeipanl","name":"飞盘类","desc":"","pc":"rt"},
+            {"code":"rtyuanpanl","name":"圆盘类","desc":"","pc":"rt"},
+            {"code":"rtlangtoush","name":"榔头珊瑚","desc":"","pc":"rt"},
+            {"code":"rttizsh","name":"提子珊瑚","desc":"","pc":"rt"},
+            {"code":"rthuochaitsh","name":"火柴头珊瑚","desc":"","pc":"rt"},
+            {"code":"rtniluoh","name":"尼罗河","desc":"","pc":"rt"},
+            {"code":"rthuapingwl","name":"花瓶-蛙卵","desc":"","pc":"rt"},
+            {"code":"rtqipaosh","name":"气泡珊瑚","desc":"","pc":"rt"},
+            {"code":"rtguanchognsh","name":"管虫珊瑚","desc":"","pc":"rt"},
+            {"code":"rtsqshou","name":"闪千手-鬼爪","desc":"","pc":"rt"},
+            {"code":"rtdxshouxh","name":"大小手星华","desc":"","pc":"rt"},
+            {"code":"rtqianshoufo","name":"千手佛","desc":"","pc":"rt"},
+            {"code":"rttaiyangh","name":"太阳树-炮仗花","desc":"","pc":"rt"},
+            {"code":"rtyehua","name":"椰花","desc":"","pc":"rt"},
+            {"code":"rtshuix","name":"水螅","desc":"","pc":"rt"},
+            {"code":"rtzyzsh","name":"章鱼足珊瑚","desc":"","pc":"rt"},
+            {"code":"rthuojsh","name":"火炬珊瑚","desc":"","pc":"rt"},
+            {"code":"rthaizl","name":"海藻类","desc":"","pc":"rt"},
+            {"code":"rtshengsh","name":"笙珊瑚","desc":"","pc":"rt"},
+            {"code":"rtyumaox","name":"羽毛星","desc":"","pc":"rt"},
+            {"code":"rtmabian","name":"马鞭","desc":"","pc":"rt"},
+            {"code":"rtfenzhilx","name":"分枝流星","desc":"","pc":"rt"},
+            {"code":"rthua","name":"花","desc":"","pc":"rt"},
+            {"code":"rtzihaix","name":"紫海星","desc":"","pc":"rt"},
+            {"code":"rtyuansx","name":"远石星","desc":"","pc":"rt"},
+            {"code":"rtchisanj","name":"赤叁间","desc":"","pc":"rt"},
+            {"code":"rtdongfeiqs","name":"东非纤手","desc":"","pc":"rt"},
+            {"code":"rthuliwei","name":"狐狸尾","desc":"","pc":"rt"},
+            {"code":"rtliluowlz","name":"暹羅灣淚珠C","desc":"","pc":"rt"},
+            {"code":"rtluzmyq","name":"绿指牧羊犬","desc":"","pc":"rt"},
+            {"code":"rtniushet","name":"牛舌头","desc":"","pc":"rt"},
+            {"code":"rtshengdanq","name":"圣诞球","desc":"","pc":"rt"},
+            {"code":"rtfenglid","name":"鳳梨丁","desc":"","pc":"rt"},
+            {"code":"rtshengbei","name":"聖杯","desc":"","pc":"rt"},
+            {"code":"rthaipingg","name":"海苹果","desc":"","pc":"rt"},
+            {"code":"rthaimaobi","name":"海毛笔","desc":"","pc":"rt"},
+            {"code":"rtxishahs","name":"西沙花伞","desc":"","pc":"rt"},
+            {"code":"ygqt","name":"其它","desc":"","pc":"yg"},
+            {"code":"rtwapiansh","name":"瓦片珊瑚","desc":"","pc":"yg"},
+            {"code":"rtlujiaosh","name":"鹿角珊瑚","desc":"","pc":"yg"},
+        ];
+
+        if("all"==request.query.pc){
+            reply(types);
+        }else{
+            const tp = [];
+            _.each(types,(item)=>{
+                if(item["pc"]==request.query.pc){
+                    tp.push(item);
+                }
+            });
+            reply(tp);
+        }
+       
+    },
+    config: {
+        description: '更具生物种类code获得生物类型',
+        validate: {
+            query: {
+                pc: Joi.string(),
+            }
+        },
+    }
+};
