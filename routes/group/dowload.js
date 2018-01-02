@@ -109,13 +109,21 @@ module.exports = {
                                         returnData.push(_itemList);
                                     })
                                     returnData.push([]);
+<<<<<<< HEAD
                                    // range(rangeList,itemList);
+=======
+                                    range(rangeList,itemList);
+>>>>>>> c4ff990f6fdf157eb562dc375fad6a5177a6d3d2
                                 });
 
                                 // const name  = gres[0].name.replace(/ /g,'')+"-"+gres[0].id+".xls";
                                 const name  = "coral123-"+gres[0].id+".xlsx";
                                 const path = config.bill+"/"+name;
+<<<<<<< HEAD
                                 var buffer = xlsx.build([{name: "总单", data: totleReturnData},{name: "明细", data: returnData}]);
+=======
+                                var buffer = xlsx.build([{name: "总单", data: totleReturnData},{name: "明细", data: returnData}],{'!merges': rangeList});
+>>>>>>> c4ff990f6fdf157eb562dc375fad6a5177a6d3d2
                                 var ws = fs.createWriteStream(path);
                                 ws.write(buffer, 'utf8', function (err, buffer) {
                                     reply({"status":"ok","name":name});
