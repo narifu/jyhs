@@ -71,9 +71,6 @@ module.exports = {
                                 _itemList.push("共计");
                                 _itemList.push(totle_sum);
                                 totleReturnData.push(_itemList);
-                                
-
-
 
                                 const tempMap = new Map();
                                 const rangeList = [];
