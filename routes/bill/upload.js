@@ -8,28 +8,31 @@ const _ = require("lodash");
 const moment = require('moment')
 const insertToDb = (item, i, length, request, bill_id, reply) => {
     const fish_name = item['name'].match(/[\u4e00-\u9fa5]/g);
-    const name = fish_name?fish_name.join(""):item['name'];
+    let name = fish_name?fish_name.join(""):item['name'];
+    name = _.trim(name);
     const select = `select id from material where  name='${name}'`;
     request.app.db.query(select, (err, res) => {
         if (err) {
             request.log(['error'], err);
             reply(Boom.serverUnavailable(config.errorMessage));
         } else {
+            // console.log("=======name========",res)
+
             if (_.isEmpty(res)) {
-                const select = `select id,tag from material where  tag like '%${name}%'`;
-                console.log(select)
-                request.app.db.query(select, (err, res) => {
+                const _select = `select id,tag from material where  tag like '%${name}%'`;
+                console.log(_select)
+                request.app.db.query(_select, (err, _res) => {
                     if (err) {
                         request.log(['error'], err);
                         reply(Boom.serverUnavailable(config.errorMessage));
                     } else {
-                        console.log(res)
+                        // console.log("=======tag========",_res)
                         
-                        if (_.isEmpty(res)) {
+                        if (_.isEmpty(_res)) {
                             insertBillDetail(item, i, length, request, bill_id, reply, null);
                         } else {
                             let matchId = null;
-                            _.each(res, (re) => {
+                            _.each(_res, (re) => {
                                 const id = re["id"];
                                 const tags = re["tag"];
                                 _.each(tags.split(","), (tag) => {
@@ -135,6 +138,7 @@ module.exports = {
                     request.log(['error'], err);
                     reply(Boom.serverUnavailable(config.errorMessage));
                 } else {
+
                     for (let i = 1; i <= length; i++) {
                         insertToDb(list[i - 1], i, length, request, res.insertId, reply);
                     }
