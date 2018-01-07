@@ -49,6 +49,6 @@ module.exports = {
                 type1: Joi.string(),
                 type2:Joi.string(),
             }
-        },
+        }
     }
 };

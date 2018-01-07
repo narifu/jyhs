@@ -27,7 +27,8 @@ module.exports = {
                         };
                         const session = {
                             id: user.id,
-                            username: request.payload.name
+                            username: request.payload.name,
+                            type :user.type
                         };
                         const token = JWT.sign(session, config.authKey, options);
                         const key = util.buildKey(request)+'token';
@@ -53,13 +54,15 @@ module.exports = {
             payload: {
                 password: Joi.string().required().min(6).max(20).allow(null),
                 name: Joi.string().required().min(3).max(20),
-                auth: Joi.string().required().min(4)
+                auth: Joi.string().required().min(4),
+                key:Joi.string().required()
             }
         },
         pre: [
             {
                 method(request, reply) {
-                    const key = util.buildKey(request);
+                    // const key = util.buildKey(request);
+                    const key = request.payload.key;
                     const text = global.globalCahce.get(key)+"";
                     if(text && request.payload.auth && text.toLowerCase() === request.payload.auth.toLowerCase()) {
                         reply(true);

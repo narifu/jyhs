@@ -59,6 +59,6 @@ module.exports = {
             parse: true,
             allow: 'multipart/form-data'
         },
-        description: '添加生物资料图片'
+        description: '添加支付图片'
     }
 };

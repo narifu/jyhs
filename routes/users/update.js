@@ -34,6 +34,18 @@ module.exports = {
                 contacts: Joi.string().optional().default(" "),
                 id: Joi.number().required()
             }
-        }
+        },
+        pre: [
+            {
+                method(request, reply) {
+                    const user = request.auth.credentials;
+                    if(user && user.id == request.payload.id || user.type == 'yhgly') {
+                        reply(true);
+                    } else {
+                        reply(Boom.notAcceptable('权限不足'));
+                    }
+                }
+            }
+        ]
     }
 };
