@@ -1,3 +1,5 @@
+const Boom = require('boom');
+
 module.exports = {
     path: '/api/me',
     method: 'GET',
@@ -5,6 +7,7 @@ module.exports = {
         reply(request.auth.credentials);
     },
     config: {
+        auth: 'jwt',
         pre: [
             {
                 method(request, reply) {

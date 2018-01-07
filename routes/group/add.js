@@ -20,6 +20,7 @@ module.exports = {
         });
     },
     config: {
+        auth: 'jwt',
         description: '添加开团信息',
         validate: {
             payload: {

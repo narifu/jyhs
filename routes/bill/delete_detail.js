@@ -17,6 +17,7 @@ module.exports = {
         });
     },
     config: {
+        auth: 'jwt',
         description: '根据ID删除团购清单明细',
         validate: {
             payload: {

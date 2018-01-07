@@ -18,6 +18,7 @@ module.exports = {
         });
     },
     config: {
+        auth: 'jwt',
         description: '更新购物车',
         validate: {
             payload: {

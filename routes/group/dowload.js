@@ -128,6 +128,7 @@ module.exports = {
         });
     },
     config: {
+        auth: 'jwt',
         description: '根据ID下载团购清单',
         validate: {
             payload: {

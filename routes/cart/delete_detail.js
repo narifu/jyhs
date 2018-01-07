@@ -18,6 +18,7 @@ module.exports = {
         });
     },
     config: {
+        auth: 'jwt',
         description: '根据购物车id删减购物车明细',
         validate: {
             payload: {

@@ -21,6 +21,7 @@ module.exports = {
         });
     },
     config: {
+        auth: 'jwt',
         description: '根据ID重开团购',
         validate: {
             payload: {

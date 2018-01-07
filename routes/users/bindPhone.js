@@ -17,26 +17,13 @@ module.exports = {
         });
     },
     config: {
+        auth: 'jwt',
         description: '根据ID更新用户',
         validate: {
             payload: {
                 phone: Joi.string().required().max(11),
-                auth: Joi.string().required().min(4),
-                requestId: Joi.string().required(),
                 id: Joi.number().required()
             }
-        },
-        pre: [
-            {
-                method(request, reply) {
-                    const text = global.globalCahce.get(request.payload.requestId)+"";
-                    if(text&&text.toLowerCase() === request.payload.auth.toLowerCase()) {
-                        reply(true);
-                    } else {
-                        reply(Boom.notAcceptable('验证码不正确'));
-                    }
-                }
-            },
-        ]
+        }
     }
 };

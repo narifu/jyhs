@@ -45,6 +45,7 @@ module.exports = {
       
     },
     config: {
+        auth: 'jwt',
         description: '根据ID删除生物资料',
         validate: {
             query: {

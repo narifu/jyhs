@@ -21,6 +21,7 @@ module.exports = {
         });
     },
     config: {
+        auth: 'jwt',
         description: '根据ID结束团购清单',
         validate: {
             payload: {

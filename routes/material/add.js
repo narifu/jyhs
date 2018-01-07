@@ -27,6 +27,7 @@ module.exports = {
         });
     },
     config: {
+        auth: 'jwt',
         description: '添加生物资料',
         validate: {
             payload: {

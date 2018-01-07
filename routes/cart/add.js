@@ -18,6 +18,7 @@ module.exports = {
         });
     },
     config: {
+        auth: 'jwt',
         description: '创建购物车',
         validate: {
             payload: {

@@ -18,6 +18,7 @@ module.exports = {
         });
     },
     config: {
+        auth: 'jwt',
         description: '根据ID更新用户',
         validate: {
             payload: {

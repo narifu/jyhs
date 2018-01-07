@@ -36,6 +36,7 @@ module.exports = {
 
     },
     config: {
+        auth: 'jwt',
         payload: {
             output: 'stream',
             parse: true,

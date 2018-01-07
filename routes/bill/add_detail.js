@@ -57,6 +57,7 @@ module.exports = {
         });
     },
     config: {
+        auth: 'jwt',
         description: '根据ID添加团购清单明细',
         validate: {
             payload: {

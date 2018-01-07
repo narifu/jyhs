@@ -26,6 +26,7 @@ module.exports = {
         });
     },
     config: {
+        auth: 'jwt',
         description: '根据ID删除购物车',
         validate: {
             query: {

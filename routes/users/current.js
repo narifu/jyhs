@@ -7,6 +7,7 @@ module.exports = {
             reply(request.auth.credentials);
     },
     config:{
+        auth: 'jwt',
         description: '获得当前用户信息'
     }
 };

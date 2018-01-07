@@ -17,6 +17,7 @@ module.exports = {
         });
     },
     config: {
+        auth: 'jwt',
         description: '根据ID更新生物资料',
         validate: {
             payload: {
