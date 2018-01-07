@@ -3,7 +3,7 @@ const Boom = require('boom');
 const config = require('../../config.js');
 
 module.exports = {
-    path: '/api/users/list',
+    path: '/api/users/manage/list',
     method: 'GET',
     handler(request, reply) {
         let where = request.query.name ?`id>0 and name LIKE '%${request.query.name}%'`:"1=1 ";
@@ -22,7 +22,8 @@ module.exports = {
                 reply(Boom.serverUnavailable(config.errorMessage));
             } else {
                 let from  = (request.query.page-1)*request.query.size;
-                const select = `select u.id,u.name,u.type,u.status,u.point,u.address,u.description,u.province,u.contacts,(select name from citys c where c.mark=u.city ) city_name from user u where ${where} limit ${from},${request.query.size}`;
+                const select = `select u.*,(select name from citys c where c.mark=u.city ) city_name from user u where ${where} limit ${from},${request.query.size}`;
+                
                 request.app.db.query(select, (err, res) => {
                     if(err) {
                         request.log(['error'], err);
@@ -48,6 +49,18 @@ module.exports = {
                 type1: Joi.string(),
                 type2:Joi.string(),
             }
-        }
+        },
+        pre: [
+            {
+                method(request, reply) {
+                    const user = request.auth.credentials;
+                    if(user && user.type == 'yhgly') {
+                        reply(true);
+                    } else {
+                        reply(Boom.notAcceptable('权限不足'));
+                    }
+                }
+            }
+        ]
     }
 };

@@ -18,7 +18,7 @@ module.exports = {
             } else {
                 where = `${where}  order by g.end_date desc`;
                 let from  = (request.query.page-1)*request.query.size;
-                const select = `select g.id,g.name,(select name from citys where mark=g.city) city,g.contacts,g.phone,date_format(g.end_date, '%Y-%c-%d %H:%i:%s') end_date ,u.name supplierName,g.pickup_address,date_format(g.pickup_date , '%Y-%c-%d %H:%i:%s') pickup_date,g.pay_type,g.pay_count,g.pay_name,g.pay_description,g.freight,g.description,g.isflash is_flash,g.flash_desc,g.bill_id,g.user_id, if(g.status>0,if(TIMESTAMPDIFF(MINUTE,now(),g.end_date) > 0,1,0),g.status) status, ifnull((select sum(sum)  from cart where group_bill_id=g.id),0) sum from group_bill g,user u where g.user_id=u.id and  ${where}  limit ${from},${request.query.size}`;
+                const select = `select g.id,g.name,(select name from citys where mark=g.city) city,g.contacts,g.phone,date_format(g.end_date, '%Y-%c-%d %H:%i:%s') end_date ,(select name from user where id=(select supplier_id from bill bb where bb.id=g.bill_id )) supplierName,g.pickup_address,date_format(g.pickup_date , '%Y-%c-%d %H:%i:%s') pickup_date,g.pay_type,g.pay_count,g.pay_name,g.pay_description,g.freight,g.description,g.isflash is_flash,g.flash_desc,g.bill_id,g.user_id, if(g.status>0,if(TIMESTAMPDIFF(MINUTE,now(),g.end_date) > 0,1,0),g.status) status, ifnull((select sum(sum)  from cart where group_bill_id=g.id),0) sum from group_bill g,user u where g.user_id=u.id and  ${where}  limit ${from},${request.query.size}`;
                 request.app.db.query(select, (err, res) => {
                     if(err) {
                         request.log(['error'], err);

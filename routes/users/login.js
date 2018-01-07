@@ -4,7 +4,7 @@ const JWT = require('jsonwebtoken');
 const config = require('../../config.js');
 const util = require('../../lib/util.js');
 
-const TOKEN_TTL = '30m';
+const TOKEN_TTL = '60m';
 const md5 = require('md5');
 
 module.exports = {
