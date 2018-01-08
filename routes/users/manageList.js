@@ -38,6 +38,7 @@ module.exports = {
         });
     },
     config: {
+        auth: 'jwt',
         description: '获得所有用户信息',
         validate: {
             query: {
