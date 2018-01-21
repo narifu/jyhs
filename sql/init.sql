@@ -68,6 +68,7 @@ alter table bill change `contacts` `contacts` varchar(20) character set utf8 not
 alter table bill change `description` `description` varchar(4000) character set utf8 not null ;
 alter table bill add column effort_date TIMESTAMP;
 alter table bill add column supplier_id int not null;
+alter table bill add column is_one_step int  default 0;
 
 
 
@@ -112,6 +113,7 @@ alter table group_bill change `pay_description` `pay_description` varchar(500) c
 alter table group_bill change `flash_desc` `flash_desc` varchar(500) character set utf8 ;
 alter table group_bill change `pickup_date` `pickup_date` TIMESTAMP;
 alter table group_bill change `freight` `freight` double(3,2);
+alter table group_bill add column private int  default 0;
 
 
 create table cart(

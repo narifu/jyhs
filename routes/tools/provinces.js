@@ -7,6 +7,7 @@ module.exports = {
         const citys = {
             "bj":"北京",
             "sh":"上海",
+            "hn":"河南",
             "gd":"广东",
             "ah":"安徽",
             "cq":"重庆",
@@ -16,7 +17,6 @@ module.exports = {
             "gs":"甘肃",
             "he":"河北",
             "hl":"黑龙江",
-            "hn":"河南",
             "hb":"湖北",
             "hu":"湖南",
             "jl":"吉林",

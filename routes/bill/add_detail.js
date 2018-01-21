@@ -74,11 +74,6 @@ module.exports = {
                 method(request, reply) {
                     const select = `select user_id from bill where id=${request.payload.bill_id}`;
                     request.app.db.query(select, (err, res) => {
-                        console.log(res[0].user_id)
-                        console.log(request.payload.user_id )
-                        console.log(res[0].user_id == request.payload.user_id )
-                        console.log(0 == request.payload.user_id)
-                        console.log(request.payload.bill_id)
                         if(err) {
                             request.log(['error'], err);
                             reply(Boom.serverUnavailable(config.errorMessage));

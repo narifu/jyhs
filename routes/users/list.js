@@ -22,7 +22,7 @@ module.exports = {
                 reply(Boom.serverUnavailable(config.errorMessage));
             } else {
                 let from  = (request.query.page-1)*request.query.size;
-                const select = `select u.id,u.name,u.type,u.status,u.point,u.address,u.description,u.province,u.contacts,(select name from citys c where c.mark=u.city ) city_name from user u where ${where} limit ${from},${request.query.size}`;
+                const select = `select u.id,u.name,u.phone,u.type,u.status,u.point,u.address,u.description,u.province,u.contacts,(select name from citys c where c.mark=u.city ) city_name from user u where ${where} limit ${from},${request.query.size}`;
                 request.app.db.query(select, (err, res) => {
                     if(err) {
                         request.log(['error'], err);

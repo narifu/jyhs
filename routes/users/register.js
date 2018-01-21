@@ -22,7 +22,7 @@ module.exports = {
         description: '注册',
         validate: {
             payload: {
-                name: Joi.string().required().min(3).max(20),
+                name: Joi.string().required().min(1).max(20),
                 password1: Joi.string().required().min(6).max(20),
                 password2: Joi.string().required().min(6).max(20),
                 province: Joi.string().optional().default("sh"),

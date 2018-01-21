@@ -6,7 +6,7 @@ module.exports = {
     path: '/api/bill/update',
     method: 'POST',
     handler(request, reply) {
-        const update = `update bill set supplier_id='${request.payload.supplier_id}', effort_date='${request.payload.effort_date}', name='${request.payload.name}',contacts='${request.payload.contacts}',phone='${request.payload.phone}',description='${request.payload.description}' where id=${request.payload.id}`;
+        const update = `update bill set is_one_step='${request.payload.is_one_step}', supplier_id='${request.payload.supplier_id}', effort_date='${request.payload.effort_date}', name='${request.payload.name}',contacts='${request.payload.contacts}',phone='${request.payload.phone}',description='${request.payload.description}' where id=${request.payload.id}`;
         request.app.db.query(update, (err, res) => {
             if(err) {
                 request.log(['error'], err);
@@ -28,6 +28,7 @@ module.exports = {
                 user_id: Joi.number().required(),
                 effort_date:Joi.number().required(),
                 supplier_id:Joi.number().required(),
+                is_one_step: Joi.string().optional().default("0"),
                 id: Joi.number().required()
             }
         },
@@ -35,11 +36,13 @@ module.exports = {
             {
                 method(request, reply) {
                     const select = `select user_id from bill where id=${request.payload.id}`;
+                    const user = request.auth.credentials;
+                    
                     request.app.db.query(select, (err, res) => {
                         if(err) {
                             request.log(['error'], err);
                             reply(Boom.serverUnavailable(config.errorMessage));
-                        } else if(res && res[0].user_id === request.payload.user_id || 0 === request.payload.user_id) {
+                        } else if(res && res[0].user_id === request.payload.user_id || user.type == 'tggly') {
                             reply(true);
                         } else {
                             reply(Boom.notAcceptable('您没有权限更新这个单子'));

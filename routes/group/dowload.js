@@ -40,7 +40,7 @@ module.exports = {
                 reply(Boom.serverUnavailable(config.errorMessage));
             } else {
                 const returnData = [["姓名","联系电话","合计","备注","品名","规格","单价","数量","合计（不含运费"]];
-                const totleReturnData = [["","","","","品名","规格","单价","数量","合计（不含运费"]]
+                const totleReturnData = [["品名","规格","单价","数量","合计（不含运费"]]
                 const totlLlist = `select bd.name,bd.size,bd.price,sum(bill_detail_num) bill_detail_num,sum((bd.price*cd.bill_detail_num)) sum from cart c,cart_detail cd,bill_detail bd where c.id=cd.cart_id  and cd.bill_detail_id=bd.id and c.group_bill_id=${request.payload.id} group by name,size,price`;
                 const list = `select u.name userName,c.phone,c.description,bd.name,bd.size,bd.price,cd.bill_detail_num,(bd.price*cd.bill_detail_num) sum from cart c,cart_detail cd,bill_detail bd,user u where c.id=cd.cart_id and c.user_id=u.id and cd.bill_detail_id=bd.id and c.group_bill_id=${request.payload.id}`;
                 request.app.db.query(list, (err, res) => {

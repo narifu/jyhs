@@ -22,7 +22,7 @@ module.exports = {
         description: '根据ID更新用户',
         validate: {
             payload: {
-                name: Joi.string().required().min(3).max(20),
+                name: Joi.string().required().min(1).max(20),
                 province: Joi.string().required().max(20),
                 city: Joi.string().required().max(20),
                 phone: Joi.string().required().max(20),

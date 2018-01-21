@@ -6,7 +6,7 @@ module.exports = {
     path: '/api/bill/get',
     method: 'GET',
     handler(request, reply) {
-        const select = `select id,name,contacts,phone,description,user_id,supplier_id,DATE_FORMAT(effort_date,'%Y-%m-%d') effort_date,if((TO_DAYS(NOW()) - TO_DAYS(effort_date))>0,'false','true') status  from bill where id=${request.query.id}`;
+        const select = `select b.* ,(select name from user u where u.id=b.supplier_id) supplierName,DATE_FORMAT(effort_date,'%Y-%m-%d') effort_date,if((TO_DAYS(NOW()) - TO_DAYS(effort_date))>0,'false','true') status  from bill b where id=${request.query.id}`;
         request.app.db.query(select, (err, res) => {
             if(err) {
                 request.log(['error'], err);

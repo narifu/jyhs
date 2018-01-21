@@ -14,6 +14,7 @@ module.exports = {
          const category = upload.category;
          const id = upload.id;
          const img = upload["img"];
+         const small = upload["small"];
          const _name = img.hapi.filename;
          const tempName = _name.split(".");
          let timestamp = Date.parse(new Date());
