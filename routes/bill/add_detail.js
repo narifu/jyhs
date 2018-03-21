@@ -4,7 +4,7 @@ const config = require('../../config.js');
 const _ = require("lodash");
 
 const addBillDetail = (request, reply, materialId) => {
-    const insert = `insert into bill_detail (bill_id,name,size,price,point,material_id) values (${request.payload.bill_id},'${request.payload.name}','${request.payload.size}',${request.payload.price},${request.payload.point},${materialId}) `;
+    const insert = `insert into bill_detail (bill_id,name,size,price,point,material_id,numbers,limits) values (${request.payload.bill_id},'${request.payload.name}','${request.payload.size}',${request.payload.price},${request.payload.point},${materialId},${request.payload.numbers},${request.payload.limits}) `;
     request.app.db.query(insert, (err, res) => {
         if(err) {
             request.log(['error'], err);
@@ -66,6 +66,8 @@ module.exports = {
                 size: Joi.string().required().min(2).max(20),
                 price: Joi.number().required(),
                 point: Joi.number().required(),
+                numbers: Joi.string().optional().default("100"),
+                limits: Joi.string().optional().default("100"),
                 bill_id: Joi.number().required()
             }
         },

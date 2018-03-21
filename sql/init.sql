@@ -50,6 +50,8 @@ create table bill_detail(
 );
 alter table bill_detail change `name` `name` varchar(200) character set utf8 not null ;
 alter table bill_detail change `size` `size` varchar(20) character set utf8 not null ;
+alter table bill_detail add column numbers int;
+alter table bill_detail add column limits int;
 
 alter table bill_detail character set utf8;
 

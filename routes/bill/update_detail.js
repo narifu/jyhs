@@ -4,7 +4,7 @@ const config = require('../../config.js');
 const _ = require("lodash");
 
 const updateBillDetail = (request, reply, materialId) => {
-    const update = `update bill_detail set material_id=${materialId}, name='${request.payload.name}',size='${request.payload.size}',price=${request.payload.price},point=${request.payload.point} where id=${request.payload.id}`;
+    const update = `update bill_detail set numbers=${request.payload.numbers}, limits=${request.payload.numbers}, material_id=${materialId}, name='${request.payload.name}',size='${request.payload.size}',price=${request.payload.price},point=${request.payload.point} where id=${request.payload.id}`;
     request.app.db.query(update, (err, res) => {
         if(err) {
             request.log(['error'], err);
@@ -67,6 +67,8 @@ module.exports = {
                 size: Joi.string().required().min(2).max(20),
                 price: Joi.number().required(),
                 point: Joi.number().required(),
+                numbers: Joi.string().optional().default("100"),
+                limits: Joi.string().optional().default("100"),
                 id: Joi.number().required()
             }
         },

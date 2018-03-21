@@ -58,8 +58,11 @@ const insertToDb = (item, i, length, request, bill_id, reply) => {
     });
 }
 const insertBillDetail = (item, i, length, request, bill_id, reply, materialId) => {
-    const size = item['size']?item["size"]:"";
-    const insert = `insert into bill_detail (bill_id,name,size,price,point,material_id) values (${bill_id},'${item['name']}','${size}',${item['price']},${item['point']?item['point']:0},${materialId}) `;
+    const size = !_.isEmpty(item['size'])?item["size"]:"";
+    const numbers = !_.isEmpty(item['numbers'])?item["numbers"]:"99";
+    const limits = !_.isEmpty(item['limits'])?item["limits"]:"99";
+
+    const insert = `insert into bill_detail (bill_id,name,size,price,point,material_id,numbers,limits) values (${bill_id},'${item['name']}','${size}',${item['price']},${item['point']?item['point']:0},${materialId},${numbers},${limits}) `;
     // console.log("=======insert sql========",insert)
     
     request.app.db.query(insert, (err, res) => {
@@ -106,18 +109,19 @@ const readExcel = (path) => {
         flag = false;
     }
     
+    
     if(flag){
         for (let row = 2; ; row++) {
             if (sheet['A' + row] == null) {
                 break;
             }
             const item = {};
-            for (let col = 65; col <= 68; col++) {
+            for (let col = 65; col <= 70; col++) {
                 const c = String.fromCharCode(col);
                 const key = '' + c + row;
                 const td = {};
                 const value = sheet[key]?util.trim(sheet[key]['w']):null;
-                
+
                 switch (c) {
                     case 'A':
                             if(_.isEmpty(value)){
@@ -155,6 +159,26 @@ const readExcel = (path) => {
                                 errorList.push(`第${row}行叫${sheet['A' + row]['w']}的积分太多了`);
                             }else{
                                 item['point'] = value;
+                            }
+                            break;
+                    case 'E':
+                            if(_.isEmpty(value)){
+                                item['numbers'] = "99";
+                            }else if(isNaN(Number(value))){
+                                errorList.push(`第${row}行叫${sheet['A' + row]['w']}的数量不是数字`);
+                            }else{
+                                item['numbers'] = value;
+                            }
+                            break;
+                    case 'F':
+                            if(_.isEmpty(value)){
+                                item['limits'] = "99";
+                            }else if(isNaN(Number(value))){
+                                errorList.push(`第${row}行叫${sheet['A' + row]['w']}的限购不是数字`);
+                            }else if(!_.isEmpty(item["numbers"])&&Number(value)>Number(item["numbers"])){
+                                errorList.push(`第${row}行叫${sheet['A' + row]['w']}的限购数大于总数`);
+                            }else{
+                                item['limits'] = value;
                             }
                             break;
                     default:
