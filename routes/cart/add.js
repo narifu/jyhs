@@ -33,7 +33,6 @@ module.exports = {
             {
                 method(request, reply) {
                     const select = `select count(1) count from cart where user_id=${request.payload.user_id} and group_bill_id=${request.payload.group_bill_id}`;
-                    console.log(select)
                     request.app.db.query(select, (err, res) => {
                         if(err) {
                             request.log(['error'], err);

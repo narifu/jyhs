@@ -13,8 +13,8 @@ module.exports = {
                 request.log(['error'], err);
                 reply(Boom.serverUnavailable(config.errorMessage));
             } else {
-                if(Number(res["count"])+request.payload.bill_detail_num>Number(res["numbers"])){
-                    reply(Boom.notAcceptable(res['name']+'  库存不足'));
+                if ((Number(res[0]["count"])+ request.payload.bill_detail_num) > Number(res[0]["numbers"])) {
+                    reply(Boom.notAcceptable(res[0]['name']+'  库存不足'));
                 }else{
                     const select = `delete from cart_detail where cart_id=${request.payload.cart_id} and  bill_detail_id=${request.payload.bill_detail_id} `;
                     request.app.db.query(select, (err, res) => {
