@@ -20,8 +20,6 @@ module.exports = {
                         request.log(['error'], err);
                         reply(Boom.serverUnavailable(config.errorMessage));
                     } else {
-                        console.log("countRes",countRes)
-                        console.log("countRes",res)
                         _.each(res, (re) => {
                             const id = re["id"];
                             let count = 0;
