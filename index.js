@@ -14,8 +14,8 @@ const server = new Hapi.Server({
     }
 });
 server.connection({
-    host: '127.0.0.1',
-    port: 3000
+    host: '0.0.0.0',
+    port: 1433
 });
 
 loadPlugins(server).then(() => {

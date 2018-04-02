@@ -6,4 +6,4 @@ Quickstart
 ----------
 
 	npm install
-	nodemon# jyhs
+	nodemon

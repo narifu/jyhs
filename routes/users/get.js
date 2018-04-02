@@ -6,7 +6,7 @@ module.exports = {
     path: '/api/users/get',
     method: 'GET',
     handler(request, reply) {
-        const select = `select * from user where id=${request.query.id}`;
+        const select = `select *,(select name from citys c where c.mark=u.city) cityName from user u where id=${request.query.id}`;
         request.app.db.query(select, (err, res) => {
             if(err) {
                 request.log(['error'], err);

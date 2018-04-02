@@ -13,7 +13,7 @@ module.exports = {
                 request.log(['error'], err);
                 reply(Boom.serverUnavailable(config.errorMessage));
             } else {
-                if(Number(res["count"])>Number(res["numbers"])){
+                if(Number(res["count"])+request.payload.bill_detail_num>Number(res["numbers"])){
                     reply(Boom.notAcceptable(res['name']+'  库存不足'));
                 }else{
                     const select = `delete from cart_detail where cart_id=${request.payload.cart_id} and  bill_detail_id=${request.payload.bill_detail_id} `;
@@ -45,7 +45,7 @@ module.exports = {
                 cart_id: Joi.number().required(),
                 bill_detail_id: Joi.number().required(),
                 bill_detail_num: Joi.number().required(),
-                group_bill_id: Joi.number().required(),
+                group_bill_id: Joi.number().required()
             }
         },
         pre: [

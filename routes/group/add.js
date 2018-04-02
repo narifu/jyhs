@@ -8,6 +8,9 @@ module.exports = {
     path: '/api/group/add',
     method: 'POST',
     handler(request, reply) {
+        if(request.payload.pickup_date==0){
+            request.payload.pickup_date = null;
+        }
         const insert = `insert into group_bill (name,contacts,phone,end_date,pickup_address,pickup_date,pay_type,pay_count,pay_name,pay_description,freight,description,isflash,flash_desc,bill_id,user_id,city,province,private) VALUES('${request.payload.name}','${request.payload.contacts}','${request.payload.phone}',${request.payload.end_date},'${request.payload.pickup_address}',${request.payload.pickup_date},'${request.payload.pay_type}','${request.payload.pay_count}','${request.payload.pay_name}','${request.payload.pay_description}',${request.payload.freight},'${request.payload.description}',${request.payload.is_flash},'${request.payload.flash_desc}',${request.payload.bill_id},${request.payload.user_id},'${request.payload.city}','${request.payload.province}',${request.payload.private})`;
         request.app.db.query(insert, (err, res) => {
             if(err) {
