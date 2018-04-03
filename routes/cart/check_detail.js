@@ -13,7 +13,7 @@ module.exports = {
                 request.log(['error'], err);
                 reply(Boom.serverUnavailable(config.errorMessage));
             } else {
-                if ((Number(res[0]["count"])+ request.payload.bill_detail_num) > Number(res[0]["numbers"])) {
+                if ((Number(res[0]["count"])) == Number(res[0]["numbers"]) || (Number(res[0]["count"])+ request.payload.bill_detail_num) > Number(res[0]["numbers"])) {
                     reply(Boom.notAcceptable(res[0]['name'] + '  库存不足'));
                 } else {
                     reply(config.ok);
